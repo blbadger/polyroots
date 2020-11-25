@@ -3,26 +3,6 @@ import numpy as np
 import matplotlib.pyplot as plt 
 # plt.style.use('dark_background')
 
-# def successive_approximations(x_start, iterations):
-# 	'''
-# 	Computes the successive approximations for the equation
-# 	y = x^3 - 1.
-# 	'''
-# 	x_now = x_start
-# 	ls = []
-# 	for i in range(iterations):
-# 		f_now = x_now**3 - 1
-# 		f_prime_now = 3*x_now**2 
-
-# 		x_next = x_now - f_now / f_prime_now
-# 		ls.append(x_now)
-# 		x_now = x_next
-# 	return ls
-
-
-# print (successive_approximations(-0.7937, 20))
-
-
 class Calculate:
 
 	def __init__(self, equation, point, differentiate=False):
