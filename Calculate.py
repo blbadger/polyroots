@@ -37,6 +37,12 @@ class Calculate:
 
 		return ls
 
+	def to_string(self):
+		'''converts a list into a string  
+		'''
+		ls = self.differentiate()
+		return ''.join([str(i) for i in ls])
+
 	def differentiate(self):
 		'''
 		Finds the derivative of a given
