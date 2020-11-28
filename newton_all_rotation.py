@@ -176,7 +176,7 @@ def newton_raphson_map(equation, max_iterations, x_range, y_range, t):
 	xr = 10/(2**(t/30))
 	yl = 10/(2**(t/30))
 	yr = -10/(2**(t/30)) 
-	y, x = np.ogrid[-0.5: 0.5: y_range*1j, -0.5: 0.5: x_range*1j]
+	y, x = np.ogrid[0.5: -0.5: y_range*1j, -0.5: 0.5: x_range*1j]
 	z_array = x + y*1j
 
 	iterations_until_rooted = max_iterations + np.zeros(z_array.shape)
