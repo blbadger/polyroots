@@ -13,7 +13,7 @@ def secant_method(equation, max_iterations, x_range, y_range, t):
 
 	 # create a boolean table of all 'true'
 	not_already_at_root = iterations_until_rooted < 10000
-	zeros = np.ones(z_array.shape) 
+	zeros = np.zeros(z_array.shape) 
 	z_0 = (z_array - zeros)/2 # setting the initial guess to half the distance to the origin from the second guess, which is plotted
 
 	for i in range(max_iterations):
