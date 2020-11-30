@@ -32,7 +32,7 @@ def secant_method(equation, max_iterations, x_range, y_range, t):
 	return iterations_until_rooted
 
 for i in range(300):
-	plt.imshow(secant_method('x^5-x-1', 60, 2000, 1400, i), extent=[-1, 1, -1, 1], cmap='inferno')
+	plt.imshow(secant_method('x^5-x-1', 60, 1558, 1558, i), extent=[-1, 1, -1, 1], cmap='inferno')
 	plt.axis('off')
 	# plt.show()
 	plt.savefig('secant{0:03d}.png'.format(i), bbox_inches='tight', dpi=420)
