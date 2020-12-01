@@ -2,7 +2,7 @@
 import numpy as np 
 import matplotlib.pyplot as plt 
 plt.style.use('dark_background')
-from Calculate import Calculate
+from Calculate import Calculate # see the 'Calculate.py' file in this repository
 
 
 def halley_method(equation, max_iterations, x_range, y_range, t):
