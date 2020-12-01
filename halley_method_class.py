@@ -32,15 +32,16 @@ def halley_method(equation, max_iterations, x_range, y_range, t):
 
 	return iterations_until_rooted
 
-plt.imshow(halley_method('x^3-1', 30, 1558, 1558, 30), extent=[-5, 5, -5, 5], cmap='inferno')
-plt.axis('on')
-plt.show()
-plt.close()
+# plt.imshow(halley_method('x^3-1', 30, 1558, 1558, 30), extent=[-5, 5, -5, 5], cmap='inferno')
+# plt.axis('on')
+# plt.show()
+# plt.close()
 
-# for i in range(360, 365):
-#   t = i
-#   plt.imshow(newton_raphson_map('x^5-3x^4+9x^3+2x^2-x-1', 30, 2500, 2500, t), extent=[-10/(2**(t/30)) + 0.41187, 10/(2**(t/30)) + 0.41187, 10/(2**(t/30)), -10/(2**(t/30))], cmap='inferno')
-#   plt.axis('off')
-#   # plt.show()
-#   plt.savefig('Newton_Raphson{0:03d}.png'.format(i), bbox_inches='tight', dpi=300)
-#   plt.close()
+# for incrementation
+for i in range(501):
+	t = i
+	plt.imshow(halley_method('x^' + str(13+t/500) + '-x-1', 25, 2000, 1400, t), cmap='inferno')
+	plt.axis('off')
+	# plt.show()
+	plt.savefig('halley{0:03d}.png'.format(i), bbox_inches='tight', dpi=420)
+	plt.close()
