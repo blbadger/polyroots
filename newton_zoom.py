@@ -181,7 +181,7 @@ def newton_raphson_map(equation, max_iterations, x_range, y_range, t):
 	return iterations_until_rooted
 
 # check image
-# plt.imshow(newton_raphson_map('x^5-x-1', 30, 2000, 2000), extent=[0.4, 0.42, -0.01, 0.01], cmap='inferno')
+# plt.imshow(newton_raphson_map('x^5-x-1', 30, 1558, 1558), extent=[0.4, 0.42, -0.01, 0.01], cmap='inferno')
 # plt.axis('off')
 # plt.show()
 # plt.close()
@@ -190,8 +190,8 @@ def newton_raphson_map(equation, max_iterations, x_range, y_range, t):
 
 for i in range(300):
 	t = i
-	plt.imshow(newton_raphson_map('x^5-x-1', 30, 2500, 2500, t), extent=[-10/(2**(t/30)) + 0.41187, 10/(2**(t/30)) + 0.41187, 10/(2**(t/30)), -10/(2**(t/30))], cmap='inferno')
+	plt.imshow(newton_raphson_map('x^5-x-1', 30, 1558, 1558, t), extent=[-10/(2**(t/30)) + 0.41187, 10/(2**(t/30)) + 0.41187, 10/(2**(t/30)), -10/(2**(t/30))], cmap='inferno')
 	plt.axis('off')
 	# plt.show()
-	plt.savefig('Newton_Raphson{0:03d}.png'.format(i), bbox_inches='tight', dpi=300)
+	plt.savefig('Newton_Raphson{0:03d}.png'.format(i), bbox_inches='tight', dpi=420)
 	plt.close()
