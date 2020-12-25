@@ -54,11 +54,11 @@ print (Z)
 X = [i.real for i in Z]
 Y = [i.imag for i in Z]
 
-# plt.plot(X, Y, '^', color='white', alpha = 1, markersize=2)
-# plt.imshow(newton_raphson_map('x^5-x-1', 30, 1558, 1558, 30), extent=[-2, 2, -2, 2], cmap='inferno')
-# plt.axis('off')
-# plt.show()
-# plt.close()
+plt.plot(X, Y, '-', color='white', alpha = 1, markersize=2)
+plt.imshow(newton_raphson_map('x^5-x-1', 30, 1558, 1558, 30), extent=[-2, 2, -2, 2], cmap='inferno')
+plt.axis('off')
+plt.show()
+plt.close()
 
 last, second_last, third_last = Z[-1], Z[-2], Z[-3] # assign periodic points
 
