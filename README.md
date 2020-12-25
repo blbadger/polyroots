@@ -1,3 +1,3 @@
-# fractal_roots
+# Polynomial roots
 
-A few methods to find which regions converge on a polynomial root.
+A few programs to find which regions converge on a polynomial root, and which do not.  Evaluate trajectories and generate images for Newton's method, Halley's method, and the secant method.
