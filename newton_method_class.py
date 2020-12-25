@@ -4,7 +4,7 @@
 import numpy as np 
 import matplotlib.pyplot as plt 
 plt.style.use('dark_background')
-from Calculate import Calculate # custom parser, differentiator, and evaluator class
+from Calculate import Calculate 
 
 def newton_raphson_map(equation, max_iterations, x_range, y_range, t):
 	print (equation)
