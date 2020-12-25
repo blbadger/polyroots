@@ -1,3 +1,3 @@
 # fractal_roots
 
-A few programs to generate fractals using Newton's method.
+A few methods to find which regions converge on a polynomial root.
