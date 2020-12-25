@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 plt.style.use('dark_background')
 from Calculate import Calculate
 
-def newton_raphson_map(equation, max_iterations, x_range, y_range, t):
+def newton_raphson_map(equation, max_iterations, x_range, y_range):
 	print (equation)
 	# top left to bottom right
 	y, x = np.ogrid[2: -2: y_range*1j, -2: 2: x_range*1j]
@@ -43,7 +43,7 @@ x_range = 2000
 Z = [0 for i in range(steps+1)]
 
 # starting point
-Z[0] = -0.77 + 1.6j
+Z[0] = 1.8132 - 1.00405j
 
 # add points to array
 for i in range(steps):
@@ -54,11 +54,11 @@ print (Z)
 X = [i.real for i in Z]
 Y = [i.imag for i in Z]
 
-plt.plot(X, Y, '-', color='white', alpha = 1, markersize=2)
-plt.imshow(newton_raphson_map('x^5-x-1', 30, 1558, 1558, 30), extent=[-2, 2, -2, 2], cmap='inferno')
-plt.axis('off')
-plt.show()
-plt.close()
+# plt.plot(X, Y, '-', color='white', alpha = 1, markersize=2)
+# plt.imshow(newton_raphson_map('x^5-x-1', 30, 1558, 1558), extent=[-2, 2, -2, 2], cmap='inferno')
+# plt.axis('off')
+# plt.show()
+# plt.close()
 
 last, second_last, third_last = Z[-1], Z[-2], Z[-3] # assign periodic points
 
@@ -92,7 +92,25 @@ def convergence_to_period_3(equation, max_iterations, x_range, y_range, last, se
 	return iterations_until_periodic
 
 # plt.plot(X, Y, '^', color='white', alpha = 1, markersize=2)
-plt.imshow(convergence_to_period_3('x^5-x-1', 50, 1558, 1558, last, second_last, third_last), extent=[-2, 2, -2, 2], cmap='inferno')
+# plt.imshow(convergence_to_period_3('x^5-x-1', 50, 1558, 1558, last, second_last, third_last), extent=[-2, 2, -2, 2], cmap='inferno')
+# plt.axis('off')
+# # plt.show()
+# plt.savefig('convergence.png', bbox_inches='tight', dpi=420)
+# plt.close()
+
+
+# overlay plots
+
+array_1 = convergence_to_period_3('x^5-x-1', 80, 1558, 1558, last, second_last, third_last)
+
+print (array_1)
+
+array_2 = newton_raphson_map('x^5-x-1', 80, 1558, 1558)
+
+print (array_2)
+
+plt.imshow(np.minimum(array_1, array_2), extent=[-2, 2, -2, 2], cmap='inferno')
 plt.axis('off')
-plt.show()
+# plt.show()
+plt.savefig('convergence_2.png', bbox_inches='tight', dpi=400)
 plt.close()
