@@ -7,7 +7,7 @@ from Calculate import Calculate
 def newton_raphson_map(equation, max_iterations, x_range, y_range, t):
 	print (equation)
 	# top left to bottom right
-	y, x = np.ogrid[1: -1: y_range*1j, -1: 1: x_range*1j]
+	y, x = np.ogrid[2: -2: y_range*1j, -2: 2: x_range*1j]
 	z_array = x + y*1j
 
 	iterations_until_rooted = max_iterations + np.zeros(z_array.shape)
@@ -55,7 +55,7 @@ X = [i.real for i in Z]
 Y = [i.imag for i in Z]
 
 # plt.plot(X, Y, '^', color='white', alpha = 1, markersize=2)
-# plt.imshow(newton_raphson_map('x^5-x-1', 30, 1558, 1558, 30), extent=[-1, 1, -1, 1], cmap='inferno')
+# plt.imshow(newton_raphson_map('x^5-x-1', 30, 1558, 1558, 30), extent=[-2, 2, -2, 2], cmap='inferno')
 # plt.axis('off')
 # plt.show()
 # plt.close()
