@@ -228,10 +228,11 @@ def evaluate(equation, point):
 
 def halley_map(equation, max_iterations, x_range, y_range, t):
 	print (equation)
-	xl = -10/(2**(t/30)) 
-	xr = 10/(2**(t/30))
-	yl = 10/(2**(t/30))
-	yr = -10/(2**(t/30)) 
+	# If zooming
+# 	xl = -10/(2**(t/30)) 
+# 	xr = 10/(2**(t/30))
+# 	yl = 10/(2**(t/30))
+# 	yr = -10/(2**(t/30)) 
 	# top left to bottom right
 	y, x = np.ogrid[1: -1: y_range*1j, -1: 1: x_range*1j]
 	z_array = x + y*1j
@@ -258,16 +259,17 @@ def halley_map(equation, max_iterations, x_range, y_range, t):
 	return iterations_until_rooted
 
 i = 0
-plt.imshow(halley_map('x^9.067-x-1', 20, 1558, 1558, 1), extent=[-5, 5, -5, 5], cmap='inferno')
+plt.imshow(halley_map('x^9.067-x-1', 20, 1558, 1558, 1), extent=[-1, 1, -1, 1], cmap='inferno')
 plt.axis('off')
 # plt.show()
 plt.savefig('halley{0:03d}.png'.format(i), bbox_inches='tight', dpi=400)
 plt.close()
 
-# # for i in range(50,300):
+# Polynomial incrementation
+# # for i in range(300):
 # # 	t = i
-# # 	plt.imshow(newton_raphson_map('x^5-x^' + str(1+i/3000) + '-1', 30, 2500, 2500, t), extent=[-10/(2**(t/30)) + 0.41187, 10/(2**(t/30)) + 0.41187, 10/(2**(t/30)), -10/(2**(t/30))], cmap='inferno')
+# # 	plt.imshow(halley_map('x^' + str(9+i/3000) + '-x-1', 30, 1558, 1558, t), extent=[-1, 1, -1, 1], cmap='inferno')
 # # 	plt.axis('off')
 # # 	# plt.show()
-# # 	plt.savefig('Newton{0:03d}.png'.format(i), bbox_inches='tight', dpi=300)
+# # 	plt.savefig('Halley{0:03d}.png'.format(i), bbox_inches='tight', dpi=400)
 # # 	plt.close()
