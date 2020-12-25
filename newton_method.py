@@ -8,11 +8,7 @@ from Calculate import Calculate # custom parser, differentiator, and evaluator c
 
 def newton_raphson_map(equation, max_iterations, x_range, y_range, t):
 	print (equation)
-	xl = -10/(2**(t/30)) + 0.41187
-	xr = 10/(2**(t/30)) + 0.41187
-	yl = 10/(2**(t/30))
-	yr = -10/(2**(t/30)) 
-	y, x = np.ogrid[yl: yr: y_range*1j, xl: xr: x_range*1j]
+	y, x = np.ogrid[1: -1: y_range*1j, -1: 1: x_range*1j]
 	z_array = x + y*1j
 
 	iterations_until_rooted = max_iterations + np.zeros(z_array.shape)
@@ -33,17 +29,8 @@ def newton_raphson_map(equation, max_iterations, x_range, y_range, t):
 
 	return iterations_until_rooted
 
-plt.imshow(newton_raphson_map('x^5-x-1', 30, 2000, 2000, t), extent=[-10/(2**(t/30)) + 0.41187, 10/(2**(t/30)) + 0.41187, 10/(2**(t/30)), -10/(2**(t/30))], cmap='inferno')
+plt.imshow(newton_raphson_map('x^5-x-1', 30, 2000, 2000, t), extent=[-1, 1, -1, 1], cmap='inferno')
 plt.axis('off')
 plt.show()
 plt.close()
 
-# Use for zooming in on the point 0.41187 + 0i
-
-# for i in range(300):
-#   t = i
-#   plt.imshow(newton_raphson_map('x^5-x-1', 30, 2000, 2000, t), extent=[-10/(2**(t/30)) + 0.41187, 10/(2**(t/30)) + 0.41187, 10/(2**(t/30)), -10/(2**(t/30))], cmap='inferno')
-#   plt.axis('off')
-#   # plt.show()
-#   plt.savefig('Newton_Raphson{0:03d}.png'.format(i), bbox_inches='tight', dpi=420)
-#   plt.close()
