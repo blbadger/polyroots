@@ -33,15 +33,12 @@ def newton_raphson_map(equation, max_iterations, x_range, y_range, t):
 
 	return iterations_until_rooted
 
-plt.imshow(newton_raphson_map('x^5-x-1', 30, 2000, 2000, 60), extent=[-10/(2**(t/30)) + 0.41187,\
-								      10/(2**(t/30)) + 0.41187, \
-								      10/(2**(t/30)), \
-								      -10/(2**(t/30))], cmap='inferno')
+plt.imshow(newton_raphson_map('x^5-x-1', 30, 2000, 2000, t), extent=[-10/(2**(t/30)) + 0.41187, 10/(2**(t/30)) + 0.41187, 10/(2**(t/30)), -10/(2**(t/30))], cmap='inferno')
 plt.axis('off')
 plt.show()
 plt.close()
 
-# Use for zoom 
+# Use for zooming in on the point 0.41187 + 0i
 
 # for i in range(300):
 #   t = i
