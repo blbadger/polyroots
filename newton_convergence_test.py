@@ -50,7 +50,7 @@ for i in range(steps):
 	z_now, z_prime = root_iterations(Z[i], 'x^5-x-1')
 	Z[i+1] = Z[i] - z_now/z_prime
 
-print (Z)
+# print (Z)
 X = [i.real for i in Z]
 Y = [i.imag for i in Z]
 
@@ -63,6 +63,14 @@ Y = [i.imag for i in Z]
 last, second_last, third_last = Z[-1], Z[-2], Z[-3] # assign periodic points
 
 def convergence_to_period_3(equation, max_iterations, x_range, y_range, last, second_last, third_last):
+	'''
+	Determines which points converge on a period 3 trajectory
+	defined by 'last, second_last, third_last' in the complex
+	plane using Newton's root finiding method.  These points 
+	need to be defined prior to calling this function.  Output 
+	is a table corresponding to the first iteration coming close 
+	to the specified orbit.
+	'''
 	print (equation)
 	# top left to bottom right
 	y, x = np.ogrid[2: -2: y_range*1j, -2: 2: x_range*1j]
@@ -99,18 +107,49 @@ def convergence_to_period_3(equation, max_iterations, x_range, y_range, last, se
 # plt.close()
 
 
-# overlay plots
+# to overlay plots
 
-array_1 = convergence_to_period_3('x^5-x-1', 80, 1558, 1558, last, second_last, third_last)
+# array_1 = convergence_to_period_3('x^5-x-1', 80, 1558, 1558, last, second_last, third_last)
+# array_2 = newton_raphson_map('x^5-x-1', 80, 1558, 1558)
 
-print (array_1)
-
-array_2 = newton_raphson_map('x^5-x-1', 80, 1558, 1558)
-
-print (array_2)
-
-plt.imshow(np.minimum(array_1, array_2), extent=[-2, 2, -2, 2], cmap='inferno')
-plt.axis('off')
+# plt.imshow(np.minimum(array_1, array_2), extent=[-2, 2, -2, 2], cmap='inferno')
+# plt.axis('on')
 # plt.show()
-plt.savefig('convergence_2.png', bbox_inches='tight', dpi=400)
+# # plt.savefig('convergence_overlayed.png', bbox_inches='tight', dpi=400)
+# plt.close()
+
+
+def traveling_together(equation, max_iterations, x_range, y_range):
+	'''
+	Returns points that stay near points nearby in future iteration
+	'''
+	y, x = np.ogrid[2: -2: y_range*1j, -2: 2: x_range*1j]
+	z_array = x + y*1j
+	z_array_2 = z_array + 0.0000001 # arbitrary change, can be any small amount
+	iterations_until_together = max_iterations + np.zeros(z_array.shape)
+
+	# create a boolean table of all 'true'
+	not_already_together = iterations_until_together < 10000
+
+	for i in range(max_iterations):
+		f_now = Calculate(equation, z_array, differentiate=False).evaluate() 
+		f_prime_now = Calculate(equation, z_array, differentiate=True).evaluate()
+		z_array = z_array - f_now / f_prime_now
+
+		f_2_now = Calculate(equation, z_array_2, differentiate=False).evaluate() 
+		f_2_prime_now = Calculate(equation, z_array_2, differentiate=True).evaluate()		
+		z_array_2 = z_array_2 - f_2_now / f_2_prime_now
+
+		# the boolean map is tested for rooted values
+		together = (abs(z_array - z_array_2) <= 0.0000001) & not_already_together
+		iterations_until_together[together] = i
+		not_already_together = np.invert(together) & not_already_together
+
+	return iterations_until_together
+
+
+plt.imshow(traveling_together('x^5-x-1', 40, 1558, 1558), extent=[-2, 2, -2, 2], cmap='inferno')
+plt.axis('on')
+plt.show()
+# plt.savefig('together.png', bbox_inches='tight', dpi=420)
 plt.close()
