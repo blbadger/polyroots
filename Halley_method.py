@@ -19,14 +19,19 @@ def halley_method(equation, max_iterations, x_range, y_range, t):
 	for i in range(max_iterations):
 		previous_z_array = z_array
 		z = z_array
-		f_now = Calculate(equation, z, differentiate=False).evaluate()
-		f_prime_now = Calculate(equation, z, differentiate=True).evaluate()
-		diff_string = Calculate(equation, z, differentiate=True).to_string()
-		f_double_prime_now = Calculate(diff_string, z, differentiate=True).evaluate()
+		
+		diff = Calculate(equation, z, differentiate=True)
+		nondiff = Calculate(equation, z, differentiate=False)
+		f_now = nondiff.evaluate()
+		f_prime_now = diff.evaluate() # first derivative evaluation
+		diff_string = diff.to_string()
+
+		double_diff = Calculate(diff_string, z, differentiate=True)
+		f_double_prime_now = double_diff.evaluate() # second derivative evaluation
 		z_array = z - (2*f_now * f_prime_now / (2*(f_prime_now)**2 - f_now * f_double_prime_now))
 
-		# the boolean map is tested for rooted values
-		found_root = (abs(z_array - previous_z_array) < 0.0000001) & not_already_at_root
+		# test the boolean map for rooted values
+		found_root = (abs(z_array - previous_z_array) < 0.000000001) & not_already_at_root
 		iterations_until_rooted[found_root] = i
 		not_already_at_root = np.invert(found_root) & not_already_at_root
 
