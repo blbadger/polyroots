@@ -1,3 +1,7 @@
+#!python3 Calculate.py
+# Parses, differentiates, and evalutes polynomial expression for
+# root finding algorithms.
+
 class Calculate:
 
 	def __init__(self, equation, point, differentiate=False):
