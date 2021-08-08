@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 plt.style.use('dark_background')
 from Calculate import Calculate
 
+
 def newton_raphson_map(equation, max_iterations, x_range, y_range):
 	print (equation)
 	# top left to bottom right

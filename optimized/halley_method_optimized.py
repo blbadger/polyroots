@@ -1,7 +1,7 @@
 # libraries
 import numpy as np 
 import matplotlib.pyplot as plt 
-from Calculate import Calculate 
+
 from CalculateFaster import OptiCalculate
 import numexpr as ne
 

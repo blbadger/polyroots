@@ -4,6 +4,7 @@
 import numexpr as ne
 from Calculate import Calculate
 
+
 class OptiCalculate(Calculate):
 	'''
 	Parses, differentiates, and evalutes polynomial expression for

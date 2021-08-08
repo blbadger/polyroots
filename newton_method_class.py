@@ -1,10 +1,11 @@
 #! python3
 
-# libraries
+# import third party libraries
 import numpy as np 
 import matplotlib.pyplot as plt 
-plt.style.use('dark_background')
+
 from Calculate import Calculate 
+
 
 def newton_raphson_map(equation, max_iterations, x_range, y_range, t):
 	print (equation)
@@ -30,9 +31,16 @@ def newton_raphson_map(equation, max_iterations, x_range, y_range, t):
 	return iterations_until_rooted
 
 t = 0
-plt.imshow(newton_raphson_map('x^5-x-1', 30, 2000, 2000, t), extent=[-1, 1, -1, 1], cmap='inferno')
+plt.style.use('dark_background')
+plt.imshow(newton_raphson_map('x^5-x-(1+0.1i)', 30, 2000, 2000, t), extent=[-1, 1, -1, 1], cmap='inferno')
 plt.axis('off')
-plt.savefig('Newton_Raphson{0:03d}.png'.format(t), bbox_inches='tight', dpi=420)
-# plt.show()
+# plt.savefig('Newton_Raphson{0:03d}.png'.format(t), bbox_inches='tight', dpi=420)
+plt.show()
 plt.close()
+
+# eq = 'x^5i-x-1'
+# c = Calculate(eq, 3.5, differentiate=False) # 5x^4-1
+
+# print (c.evaluate())
+
 

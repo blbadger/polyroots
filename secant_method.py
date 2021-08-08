@@ -4,6 +4,7 @@ from Calculate import Calculate
 
 plt.style.use('dark_background')
 
+
 def secant_method(equation, max_iterations, x_range, y_range, t):
 	print (equation)
 	# top left to bottom right

@@ -2,6 +2,7 @@
 import numpy as np 
 import matplotlib.pyplot as plt 
 from Calculate import Calculate 
+from optimized.CalculateFaster import OptiCalculate
 
 
 def halley_method(equation, max_iterations, x_range, y_range, t):
