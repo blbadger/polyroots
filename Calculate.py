@@ -46,6 +46,11 @@ class Calculate:
 					else:
 						number += 'j' # convert 'i' to 'j' for python
 					j += 1
+
+				# remove closing paren if necessary
+				if characters_ls[i+j] == ')':
+					j += 1
+
 				ls.append(complex(number))
 				i += j
 
