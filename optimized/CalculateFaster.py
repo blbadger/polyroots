@@ -2,8 +2,10 @@
 
 # import third party libraries
 import numexpr as ne
-from Calculate import Calculate
 
+# import a the real-valued version of Calculate, as complex numbers
+# are poorly behaved in numexpr
+from Calculate import Calculate
 
 class OptiCalculate(Calculate):
 	'''

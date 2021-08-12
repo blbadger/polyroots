@@ -32,11 +32,14 @@ def newton_raphson_map(equation, max_iterations, x_range, y_range, t):
 
 t = 0
 plt.style.use('dark_background')
-plt.imshow(newton_raphson_map('x^5-x-(1+3i)', 30, 2000, 2000, t), extent=[-1, 1, -1, 1], cmap='inferno')
+plt.imshow(newton_raphson_map('x^5.14-x-1', 40, 2000, 2000, t), extent=[-1, 1, -1, 1], cmap='inferno')
 plt.axis('off')
-# plt.savefig('Newton_Raphson{0:03d}.png'.format(t), bbox_inches='tight', dpi=420)
-plt.show()
+plt.savefig('Newton{0:03d}.png'.format(t), bbox_inches='tight', dpi=420)
+# plt.show()
 plt.close()
+
+
+
 
 
 

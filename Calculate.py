@@ -29,9 +29,9 @@ class Calculate:
 
 		# add constant a (ie in ax+b) if not supplied
 		for i in range(len(characters_ls)-1):
-			if characters_ls[i] not in digits and characters_ls[i+1] == 'x':
+			if (characters_ls[i] not in digits and characters_ls[i] != ')') and characters_ls[i+1] == 'x':
 				characters_ls.insert(i+1, '1')
-		
+
 		# parse expression into list
 		ls, i = [], 0
 		while i in range(len(characters_ls)):
@@ -92,8 +92,10 @@ class Calculate:
 		value 'point'.  Accepts any polynomial with positive
 		exponent values.
 		'''
+
 		parsed_exp = self.parse()
 		ls, point = parsed_exp, self.point
+
 
 		# differentiate polynomial
 		final_ls = []
