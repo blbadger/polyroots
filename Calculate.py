@@ -50,7 +50,6 @@ class Calculate:
 				# remove closing paren if necessary
 				if characters_ls[i+j] == ')':
 					j += 1
-
 				ls.append(complex(number))
 				i += j
 

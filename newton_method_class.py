@@ -9,7 +9,7 @@ from Calculate import Calculate
 
 def newton_raphson_map(equation, max_iterations, x_range, y_range, t):
 	print (equation)
-	y, x = np.ogrid[1: -1: y_range*1j, -1: 1: x_range*1j]
+	y, x = np.ogrid[0.7: -0.7: y_range*1j, -1: 1: x_range*1j]
 	z_array = x + y*1j
 
 	iterations_until_rooted = max_iterations + np.zeros(z_array.shape)
@@ -31,15 +31,16 @@ def newton_raphson_map(equation, max_iterations, x_range, y_range, t):
 	return iterations_until_rooted
 
 t = 0
-plt.style.use('dark_background')
-plt.imshow(newton_raphson_map('x^5.14-x-1', 40, 2000, 2000, t), extent=[-1, 1, -1, 1], cmap='inferno')
-plt.axis('off')
-plt.savefig('Newton{0:03d}.png'.format(t), bbox_inches='tight', dpi=420)
-# plt.show()
-plt.close()
+for t in range(283, 440):
+	plt.style.use('dark_background')
+	plt.imshow(newton_raphson_map('x^(5.11+' + str(t*0.1/600) + 'i)-x-1', 40, 2000, 1400, t), cmap='inferno')
+	plt.axis('off')
+	plt.savefig('Newton{0:03d}.png'.format(t), bbox_inches='tight', pad_inches=0, dpi=410)
+	# plt.show()
+	plt.close()
 
-
-
+# No spaces are allowed in the input polynomial! Another example of a valid complex-valued input:
+'(0.2-3i)x^(2j)-x-(1-2i)'
 
 
 
