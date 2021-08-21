@@ -20,7 +20,7 @@ class Calculate:
 		'''
 
 		equation = self.equation
-		digits = '0123456789.i'
+		digits = '0123456789e.i'
 		characters_ls = [i for i in equation]
 
 		# add start and end tags
@@ -41,7 +41,7 @@ class Calculate:
 				number = ''
 				j = 1
 				while characters_ls[i+j] != ')':
-					if characters_ls[i+j] in '.0123456789-+':
+					if characters_ls[i+j] in 'e.0123456789-+':
 						number += characters_ls[i+j] # append char to number string
 					else:
 						number += 'j' # convert 'i' to 'j' for python
@@ -57,7 +57,7 @@ class Calculate:
 				number = ''
 				j = 0
 				while characters_ls[i+j] in digits:
-					if characters_ls[i+j] in '.0123456789':
+					if characters_ls[i+j] in 'e.0123456789':
 						number += characters_ls[i+j] # append char to number string
 					else:
 						number += 'j' # convert 'i' to 'j' for python
