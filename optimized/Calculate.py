@@ -3,7 +3,7 @@
 class Calculate:
 	'''
 	Parses, differentiates, and evalutes polynomial expression for
-	root finding algorithms.  Single threaded version.
+	root finding algorithms.  Real valued-input version.
 	'''
 
 	def __init__(self, equation, point, differentiate=False):

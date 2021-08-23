@@ -32,7 +32,7 @@ def secant_method(equation, max_iterations, x_range, y_range, t):
 
 	return iterations_until_rooted
 
-plt.imshow(secant_method('x^7.3-x-1', 50, 2000, 2000, 30), extent=[-1, 1, -1, 1], cmap='inferno')
+plt.imshow(secant_method('x^(7.3-i)-x-1', 50, 2000, 2000, 30), extent=[-1, 1, -1, 1], cmap='inferno')
 plt.axis('off')
 plt.show()
 plt.close()
