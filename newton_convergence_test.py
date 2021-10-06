@@ -36,24 +36,24 @@ def root_iterations(z, equation):
 	z_prime = Calculate(equation, z, differentiate=True).evaluate()
 	return z_now, z_prime
 	
-# number of iterations and array initialization
-steps = 10000
-y_range = 1400
-x_range = 2000
+# # number of iterations and array initialization
+# steps = 10000
+# y_range = 1400
+# x_range = 2000
 
-Z = [0 for i in range(steps+1)]
+# Z = [0 for i in range(steps+1)]
 
-# starting point
-Z[0] = 1.8132 - 1.00405j
+# # starting point
+# Z[0] = 1.8132 - 1.00405j
 
-# add points to array
-for i in range(steps):
-	z_now, z_prime = root_iterations(Z[i], 'x^5-x-1')
-	Z[i+1] = Z[i] - z_now/z_prime
+# # add points to array
+# for i in range(steps):
+# 	z_now, z_prime = root_iterations(Z[i], 'x^5-x-1')
+# 	Z[i+1] = Z[i] - z_now/z_prime
 
-# print (Z)
-X = [i.real for i in Z]
-Y = [i.imag for i in Z]
+# # print (Z)
+# X = [i.real for i in Z]
+# Y = [i.imag for i in Z]
 
 # plt.plot(X, Y, '-', color='white', alpha = 1, markersize=2)
 # plt.imshow(newton_raphson_map('x^5-x-1', 30, 1558, 1558), extent=[-2, 2, -2, 2], cmap='inferno')
@@ -61,7 +61,8 @@ Y = [i.imag for i in Z]
 # plt.show()
 # plt.close()
 
-last, second_last, third_last = Z[-1], Z[-2], Z[-3] # assign periodic points
+# last, second_last, third_last = Z[-1], Z[-2], Z[-3] # assign periodic points
+
 
 def convergence_to_period_3(equation, max_iterations, x_range, y_range, last, second_last, third_last):
 	'''
@@ -121,9 +122,20 @@ def convergence_to_period_3(equation, max_iterations, x_range, y_range, last, se
 
 
 def traveling_together(equation, max_iterations, x_range, y_range):
-	'''
-	Returns points that stay near points nearby in future iteration
-	'''
+	"""
+	Returns points that stay near points nearby in future iteration.
+
+	Args:
+		equation: str, polynomial of interest
+		max_iterations: int of iterations
+		x_range: int, number of real values per output
+		y_range: int, number of imaginary values per output
+
+	Returns:
+		iterations_until_together: np.arr[int] (2D) 
+		
+	"""
+
 	y, x = np.ogrid[2: -2: y_range*1j, -2: 2: x_range*1j]
 	z_array = x + y*1j
 	z_array_2 = z_array + 0.0000001 # arbitrary change, can be any small amount
@@ -132,13 +144,17 @@ def traveling_together(equation, max_iterations, x_range, y_range):
 	# create a boolean table of all 'true'
 	not_already_together = iterations_until_together < 10000
 
+	# initialize calculate objects
+	nondiff = Calculate(equation, differentiate=False)
+	diffed = Calculate(equation, differentiate=True)
+
 	for i in range(max_iterations):
-		f_now = Calculate(equation, z_array, differentiate=False).evaluate() 
-		f_prime_now = Calculate(equation, z_array, differentiate=True).evaluate()
+		f_now = nondiff.evaluate(z_array) 
+		f_prime_now = diffed.evaluate(z_array)
 		z_array = z_array - f_now / f_prime_now
 
-		f_2_now = Calculate(equation, z_array_2, differentiate=False).evaluate() 
-		f_2_prime_now = Calculate(equation, z_array_2, differentiate=True).evaluate()		
+		f_2_now = nondiff.evaluate(z_array_2) 
+		f_2_prime_now = diffed.evaluate(z_array_2)		
 		z_array_2 = z_array_2 - f_2_now / f_2_prime_now
 
 		# the boolean map is tested for rooted values

@@ -20,7 +20,7 @@ def newton_raphson_map(equation, max_iterations, x_range, y_range, t):
 
 	Returns:
 		iterations_until_rooted: np.arr (2D) of iterations until a root is found
-								 at each point in y_range and x_range
+			at each point in y_range and x_range
 
 	"""
 

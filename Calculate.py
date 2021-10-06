@@ -126,9 +126,6 @@ class Calculate:
 			# otherwise remove
 			final_ls.pop()
 
-		# add ending tag
-		final_ls.append('end')
-
 		return final_ls
 
 
