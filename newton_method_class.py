@@ -8,19 +8,41 @@ from Calculate import Calculate
 
 
 def newton_raphson_map(equation, max_iterations, x_range, y_range, t):
+	"""
+	Generates a newton-raphson fractal.
+
+	Args:
+		equation: str, equation of interest
+		max_iterations: int, number of iterations 
+		x_range: int, number of real values per output
+		y_range: int, number of imaginary values per output
+		t: int
+
+	Returns:
+		iterations_until_rooted: np.arr (2D) of iterations until a root is found
+								 at each point in y_range and x_range
+
+	"""
+
 	print (equation)
 	y, x = np.ogrid[0.7: -0.7: y_range*1j, -1.1: 1.1: x_range*1j]
 	z_array = x + y*1j
 
 	iterations_until_rooted = max_iterations + np.zeros(z_array.shape)
-	 # create a boolean table of all 'true'
+
+	 # create a boolean gridof all 'true'
 	not_already_at_root = iterations_until_rooted < 10000
 
+	nondiff = Calculate(equation, differentiate=False)
+	diffed = Calculate(equation, differentiate=True)
+
+
 	for i in range(max_iterations):
+		print (i)
 		previous_z_array = z_array
 		z = z_array
-		f_now = Calculate(equation, z, differentiate=False).evaluate()
-		f_prime_now = Calculate(equation, z, differentiate=True).evaluate()
+		f_now = nondiff.evaluate(z)
+		f_prime_now = diffed.evaluate(z)
 		z_array = z_array - f_now / f_prime_now
 
 		# the boolean map is tested for rooted values

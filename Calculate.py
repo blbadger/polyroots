@@ -6,9 +6,8 @@ class Calculate:
 	root finding algorithms.  Single-threaded version.
 	'''
 
-	def __init__(self, equation, point, differentiate=False):
+	def __init__(self, equation, differentiate=False):
 		self.equation = equation
-		self.point = point
 		self.diff = differentiate
 
 	def parse(self):
@@ -86,14 +85,12 @@ class Calculate:
 
 	def differentiate(self):
 		'''
-		Finds the derivative of a given
-		function 'equation' and computes this derivative at
-		value 'point'.  Accepts any polynomial with positive
-		exponent values.
+		Finds the derivative of a given function 'equation'. 
+		Accepts any polynomial with positive exponent values.
 		'''
 
 		parsed_exp = self.parse()
-		ls, point = parsed_exp, self.point
+		ls = parsed_exp
 
 
 		# differentiate polynomial
@@ -135,7 +132,7 @@ class Calculate:
 		return final_ls
 
 
-	def evaluate(self):
+	def evaluate(self, point):
 		'''
 		A helper function that finds the derivative of a given
 		function 'equation' and computes this derivative at
@@ -158,7 +155,6 @@ class Calculate:
 		# change 'start' and 'end' to appropriate markers
 		final_ls[0], final_ls[-1] = '+', '+' 
 
-		point =self.point
 
 		# split parsed polynomial into blocks
 		i = 0
