@@ -17,12 +17,14 @@ def newton_raphson_map(equation, max_iterations, x_range, y_range, t):
 
 	 # create a boolean table of all 'true'
 	not_already_at_root = iterations_until_rooted < 10000
+	nondiff = Calculate(equation, differentiate=False)
+	diff = Calculate(equation, differentiate=True)
 
 	for i in range(max_iterations):
 		previous_z_array = z_array
 		z = z_array
-		f_now = Calculate(equation, z, differentiate=False).evaluate()
-		f_prime_now = Calculate(equation, z, differentiate=True).evaluate()
+		f_now = nondiff.evaluate(z)
+		f_prime_now = diff.evaluate(z)
 		z_array = z_array - f_now / f_prime_now
 
 

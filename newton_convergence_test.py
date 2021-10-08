@@ -1,8 +1,9 @@
 # libraries
 import numpy as np 
 import matplotlib.pyplot as plt 
-plt.style.use('dark_background')
 from Calculate import Calculate
+
+plt.style.use('dark_background')
 
 
 def newton_raphson_map(equation, max_iterations, x_range, y_range):
@@ -15,12 +16,14 @@ def newton_raphson_map(equation, max_iterations, x_range, y_range):
 
 	 # create a boolean table of all 'true'
 	not_already_at_root = iterations_until_rooted < 10000
+	nondiff = Calculate(equation, differentiate=False)
+	diff = Calculate(equation, differentiate=True)
 
 	for i in range(max_iterations):
 		previous_z_array = z_array
 		z = z_array
-		f_now = Calculate(equation, z, differentiate=False).evaluate()
-		f_prime_now = Calculate(equation, z, differentiate=True).evaluate()
+		f_now = nondiff.evaluate(z)
+		f_prime_now = diff.evaluate(z)
 		z_array = z_array - f_now / f_prime_now
 
 		# the boolean map is tested for rooted values
@@ -32,8 +35,8 @@ def newton_raphson_map(equation, max_iterations, x_range, y_range):
 
 
 def root_iterations(z, equation):
-	z_now = Calculate(equation, z, differentiate=False).evaluate()
-	z_prime = Calculate(equation, z, differentiate=True).evaluate()
+	z_now = Calculate(equation, differentiate=False).evaluate(z)
+	z_prime = Calculate(equation, differentiate=True).evaluate(z)
 	return z_now, z_prime
 	
 # # number of iterations and array initialization
@@ -74,6 +77,7 @@ def convergence_to_period_3(equation, max_iterations, x_range, y_range, last, se
 	to the specified orbit.
 	'''
 	print (equation)
+
 	# top left to bottom right
 	y, x = np.ogrid[2: -2: y_range*1j, -2: 2: x_range*1j]
 	z_array = x + y*1j
@@ -84,13 +88,15 @@ def convergence_to_period_3(equation, max_iterations, x_range, y_range, last, se
 	 # create a boolean table of all 'true'
 	not_already_periodic = iterations_until_periodic < 10000
 
+	nondiff = Calculate(equation, differentiate=False)
+	diff = Calculate(equation, differentiate=True)
 
 	for i in range(max_iterations):
 		double_previous_z_array = previous_z_array
 		previous_z_array = z_array
 		z = z_array
-		f_now = Calculate(equation, z, differentiate=False).evaluate() 
-		f_prime_now = Calculate(equation, z, differentiate=True).evaluate()
+		f_now = nondiff.evaluate(z) 
+		f_prime_now = diff.evaluate(z)
 		z_array = z_array - f_now / f_prime_now
 
 		# the boolean map is tested for rooted values
@@ -146,15 +152,15 @@ def traveling_together(equation, max_iterations, x_range, y_range):
 
 	# initialize calculate objects
 	nondiff = Calculate(equation, differentiate=False)
-	diffed = Calculate(equation, differentiate=True)
+	diff = Calculate(equation, differentiate=True)
 
 	for i in range(max_iterations):
 		f_now = nondiff.evaluate(z_array) 
-		f_prime_now = diffed.evaluate(z_array)
+		f_prime_now = diff.evaluate(z_array)
 		z_array = z_array - f_now / f_prime_now
 
 		f_2_now = nondiff.evaluate(z_array_2) 
-		f_2_prime_now = diffed.evaluate(z_array_2)		
+		f_2_prime_now = diff.evaluate(z_array_2)		
 		z_array_2 = z_array_2 - f_2_now / f_2_prime_now
 
 		# the boolean map is tested for rooted values

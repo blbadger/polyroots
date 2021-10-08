@@ -11,12 +11,18 @@ class Calculate:
 		self.diff = differentiate
 
 	def parse(self):
-		'''
-		Simple iterative parser to prepare a polynomial
-		string for evaluation or differentiation.  Assumes
-		negative-value or complex exponents are contained 
-		in parentheses.
-		'''
+		"""
+		Iterative parser to prepare a polynomial string for evaluation or 
+		differentiation. Assumes that negative-value or complex exponents 
+		are contained in parentheses.
+
+		Args:
+			None
+
+		Returns:
+			ls: arr[str or int or np.complex], parsed expression
+		
+		"""
 
 		equation = self.equation
 		digits = '0123456789e.i'
@@ -72,26 +78,43 @@ class Calculate:
 		return ls
 
 	def to_string(self):
-		'''
+		"""
 		Converts a list of components of a differentiated
 		expression into a string.
-		'''
+
+		Args:
+			None
+
+		Returns:
+			expression: str representing equation in ls
+
+		"""
+
 		if self.diff:
 			ls = self.differentiate()
 		else:
 			ls = self.parse()
 
-		return ''.join([str(i) for i in ls])
+		expression = ''.join([str(i) for i in ls])
+
+		return expression
+
 
 	def differentiate(self):
-		'''
+		"""
 		Finds the derivative of a given function 'equation'. 
 		Accepts any polynomial with positive exponent values.
-		'''
+
+		Args:
+			None (accesses self.equation via self.parse())
+
+		Returns:
+			final_ls: arr[str or float or np.complex]
+		
+		"""
 
 		parsed_exp = self.parse()
 		ls = parsed_exp
-
 
 		# differentiate polynomial
 		final_ls = []
@@ -130,14 +153,20 @@ class Calculate:
 
 
 	def evaluate(self, point):
-		'''
-		A helper function that finds the derivative of a given
-		function 'equation' and computes this derivative at
-		value 'point'. Note that this point may also be an ogrid
-		value, in which case the derivative is computed at each
-		point on the grid. Accepts any polynomial with positive
-		exponent values.
-		'''
+		"""
+		Computes the value of an equation for array `point`. Usually 
+		a numpy ogrid, in which case the derivative is computed at each
+		point on the grid. 
+
+		Args:
+			point: np.ogrid(np.complex), 2D ogrid of interest
+
+		Returns:
+			total: np.ogrid(complex) resulting from evaluating every
+				   value in point
+
+		"""
+
 		if self.diff:
 			final_ls = self.differentiate()
 		else:

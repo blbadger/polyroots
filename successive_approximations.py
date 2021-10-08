@@ -22,12 +22,4 @@ entry = [0.3514151 +0.7823557j]
 
 for i in entry:
 	print (successive_approximations(i, 20))
-m1 = [[1, 3, 5],
-	[ 2, 4, 6]]
 
-m2 = [[1 , 4, 3], 
-	[0 , 5, 1], 
-	[17, 6, 11]]
-
-m2 = np.transpose(m2)
-print (np.matmul(m1, m2))
