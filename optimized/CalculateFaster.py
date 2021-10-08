@@ -8,20 +8,26 @@ import numexpr as ne
 from Calculate import Calculate
 
 class OptiCalculate(Calculate):
-	'''
+	"""
 	Parses, differentiates, and evalutes polynomial expression for
 	root finding algorithms.  Multithreading accross CPU cores
 	and bytecode optimization via numexpr.  Inherits from 'Calculate'.
-	'''
+	"""
 
-	def __init__(self, equation, point, differentiate):
-		super().__init__(equation, point, differentiate)
+	def __init__(self, equation, differentiate):
+		super(OptiCalculate, self).__init__(equation, differentiate)
 
-	def evaluate(self):
-		'''
-		Evaluate expression using numexpr
-		'''
-		point = self.point
+	def evaluate(self, point):
+		"""
+		Evaluate expression using numexpr.
+
+		Args:
+			point: np.ogrid[complex]
+
+		Returns:
+			ne.evaluate(expression_string): np.ogrid[complex]
+		"""
+
 		if self.diff:
 			ls = self.differentiate()
 		else:

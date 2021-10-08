@@ -16,11 +16,13 @@ def secant_method(equation, max_iterations, x_range, y_range, t):
 	zeros = np.zeros(z_array.shape) 
 	z_0 = (z_array - zeros)/2 # setting the initial guess to half the distance to the origin from the second guess, which is plotted
 
+	nondiff = Calculate(equation, differentiate=False)
+
 	for i in range(max_iterations):
 		previous_z_array = z_array
 		z = z_array
-		f_previous = Calculate(equation, z_0, differentiate=False).evaluate()
-		f_now = Calculate(equation, z, differentiate=False).evaluate()
+		f_previous = nondiff.evaluate(z_0)
+		f_now = nondiff.evaluate(z)
 		z_array = z - f_now * (z - z_0)/(f_now - f_previous) + np.exp(3.1415j*(t/150))/8
 
 		# the boolean map is tested for rooted values

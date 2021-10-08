@@ -17,18 +17,19 @@ def halley_method(equation, max_iterations, x_range, y_range, t):
 	 # create a boolean table of all 'true'
 	not_already_at_root = iterations_until_rooted < 10000
 
+	nondiff = OptiCalculate(equation, differentiate=False)
+	diff = OptiCalculate(equation, differentiate=True)
+	diff_string = diff.to_string()
+	double_diff = OptiCalculate(diff_string, differentiate=True)
+
 	for i in range(max_iterations):
 		previous_z_array = z_array
 		z = z_array
 		
-		diff = OptiCalculate(equation, z, differentiate=True)
-		nondiff = OptiCalculate(equation, z, differentiate=False)
-		f_now = nondiff.evaluate()
-		f_prime_now = diff.evaluate() # first derivative evaluation
-		diff_string = diff.to_string()
+		f_now = nondiff.evaluate(z)
+		f_prime_now = diff.evaluate(z) # first derivative evaluation
 
-		double_diff = OptiCalculate(diff_string, z, differentiate=True)
-		f_double_prime_now = double_diff.evaluate() # second derivative evaluation
+		f_double_prime_now = double_diff.evaluate(z) # second derivative evaluation
 		z_array = ne.evaluate('z - (2*f_now * f_prime_now / (2*(f_prime_now)**2 - f_now * f_double_prime_now))')
 
 		# test the boolean map for rooted values
