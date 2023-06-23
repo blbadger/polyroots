@@ -1,6 +1,7 @@
 import numpy as np 
 import matplotlib.pyplot as plt 
 from Calculate import Calculate
+import torch
 
 plt.style.use('dark_background')
 
@@ -25,11 +26,12 @@ def secant_method(equation, max_iterations, x_range, y_range, t):
 	# top left to bottom right
 	y, x = np.ogrid[1: -1: y_range*1j, -1: 1: x_range*1j]
 	z_array = x + y*1j
-	iterations_until_rooted = max_iterations + np.zeros(z_array.shape)
+	z_array = torch.tensor(z_array)
+	iterations_until_rooted = max_iterations + torch.zeros(z_array.shape)
 
 	 # create a boolean table of all 'true'
 	not_already_at_root = iterations_until_rooted < 10000
-	zeros = np.zeros(z_array.shape) 
+	zeros = torch.zeros(z_array.shape) 
 
 	# set the initial guess to half the distance to the origin from the second guess
 	z_0 = (z_array - zeros)/2 
@@ -47,7 +49,7 @@ def secant_method(equation, max_iterations, x_range, y_range, t):
 		# the boolean map is tested for rooted values
 		found_root = (abs(z_array - previous_z_array) < 0.0000001) & not_already_at_root
 		iterations_until_rooted[found_root] = i
-		not_already_at_root = np.invert(found_root) & not_already_at_root
+		not_already_at_root = torch.logical_and(~found_root, not_already_at_root)
 
 		# set previous array to current values
 		z_0 = z 

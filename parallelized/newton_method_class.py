@@ -40,6 +40,7 @@ def newton_raphson_map(equation, max_iterations, x_range, y_range, t):
 	diffed = Calculate(equation, differentiate=True)
 
 	for i in range(max_iterations):
+		print (i)
 		previous_z_array = z_array
 		z = z_array
 		f_now = nondiff.evaluate(z)
@@ -53,18 +54,27 @@ def newton_raphson_map(equation, max_iterations, x_range, y_range, t):
 
 	return iterations_until_rooted.cpu().numpy()
 
+def increment_powers():
+	t = 0
+	for t in range(1, 2):
+		plt.style.use('dark_background')
+		plt.imshow(newton_raphson_map('x^(7.11+' + str(t*0.1/100000) + 'i)-x^(1+' + str(t*0.1/100000) + 'i)-1', 40, 2200, 1400, t), cmap='inferno')
+		plt.axis('off')
+		plt.savefig('Newton{0:03d}.png'.format(t), bbox_inches='tight', pad_inches=0, dpi=410)
+		# plt.show()
+		plt.close()
+	return
 
 if __name__ == '__main__':
 
 	plt.style.use('dark_background')
+	# NB: no spaces are allowed in the input polynomial! Another example of a valid complex-valued input: '(0.2-3i)x^(2j)-x-(1-2i)'
 	output = newton_raphson_map('x^5-x-1', 45, 2700, 1500, 0)
 	plt.imshow(output, cmap='inferno')
 	plt.axis('off')
 	plt.savefig('Newton.png', bbox_inches='tight', pad_inches=0, dpi=400)
 	plt.close()
 
-	# No spaces are allowed in the input polynomial! Another example of a valid complex-valued input:
-	# '(0.2-3i)x^(2j)-x-(1-2i)'
 
 
 
