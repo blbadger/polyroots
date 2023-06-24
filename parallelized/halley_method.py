@@ -1,17 +1,17 @@
+# libraries
 import numpy as np 
 import matplotlib.pyplot as plt 
-from Calculate import Calculate
+from Calculate import Calculate 
 import torch
 
 plt.style.use('dark_background')
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 print (f'Device: {device}')
 
-
-def secant_method(equation, max_iterations, x_range, y_range, t):
+def halley_method(equation, max_iterations, x_range, y_range, t):
 	"""
 	Returns an array of the number of iterations until a root is found
-	using the Secant method in the complex plane.
+	using Halley's method in the complex plane.
 
 	Args:
 		equation: str, polynomial of interest
@@ -29,37 +29,49 @@ def secant_method(equation, max_iterations, x_range, y_range, t):
 	y, x = np.ogrid[1: -1: y_range*1j, -1: 1: x_range*1j]
 	z_array = x + y*1j
 	z_array = torch.tensor(z_array).to(device)
+
 	iterations_until_rooted = torch.tensor(max_iterations + torch.zeros(z_array.shape)).to(device)
 
 	 # create a boolean table of all 'true'
 	not_already_at_root = torch.ones(iterations_until_rooted.shape).to(device)
-	zeros = torch.zeros(z_array.shape).to(device)
-
-	# set the initial guess to half the distance to the origin from the second guess
-	z_0 = (z_array - zeros)/2 
 
 	# initialize calculate object
 	nondiff = Calculate(equation, differentiate=False)
+	diffed = Calculate(equation, differentiate=True)
+
+	# second derivative calculation
+	diff_string = diffed.to_string()
+	double_diffed = Calculate(diff_string, differentiate=True)
 
 	for i in range(max_iterations):
 		previous_z_array = z_array
 		z = z_array
-		f_previous = nondiff.evaluate(z_0)
-		f_now = nondiff.evaluate(z)
-		z_array = z - f_now * (z - z_0)/(f_now - f_previous)
 
-		# the boolean map is tested for rooted values
+		f_now = nondiff.evaluate(z)
+		f_prime_now = diffed.evaluate(z) # first derivative evaluation
+
+		f_double_prime_now = double_diffed.evaluate(z) # second derivative evaluation
+
+		z_array = z - (2*f_now * f_prime_now / (2*(f_prime_now)**2 - f_now * f_double_prime_now))
+
+		# test the boolean map for rooted values
 		found_root = torch.logical_and(abs(z_array - previous_z_array) < 1e-8, not_already_at_root)
 		iterations_until_rooted[found_root] = i
 		not_already_at_root = torch.logical_and(~found_root, not_already_at_root)
 
-		# set previous array to current values
-		z_0 = z 
-
 	return iterations_until_rooted.cpu()
 
 
-plt.imshow(secant_method('x^3-x-1', 50, 2000, 2000, 30), extent=[-1, 1, -1, 1], cmap='inferno')
+plt.imshow(halley_method('x^13-x-1', 30, 1558, 1558, 30), extent=[-1, 1, -1, 1], cmap='inferno')
 plt.axis('off')
 plt.show()
 plt.close()
+
+# for incrementation
+# for i in range(1):
+# 	t = i
+# 	plt.imshow(halley_method('x^13-x-1', 25, 2000, 1400, t), cmap='inferno')
+# 	plt.axis('off')
+# 	plt.show()
+# 	# plt.savefig('halley{0:03d}.png'.format(i), bbox_inches='tight', dpi=420)
+# 	plt.close()
