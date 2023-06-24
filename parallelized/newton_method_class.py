@@ -34,7 +34,7 @@ def newton_raphson_map(equation, max_iterations, x_range, y_range, t):
 	iterations_until_rooted = torch.tensor(max_iterations + np.zeros(z_array.shape)).to(device)
 
 	 # create a boolean grid of all 'true'
-	not_already_at_root = torch.tensor(iterations_until_rooted < 10000).to(device)
+	not_already_at_root = torch.ones(iterations_until_rooted.shape).to(device)
 
 	nondiff = Calculate(equation, differentiate=False)
 	diffed = Calculate(equation, differentiate=True)
