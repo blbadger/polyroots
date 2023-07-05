@@ -10,7 +10,7 @@ The Pfinder uses one of three analytic methods to find roots of algebraic polyno
 
 After following the link in the upper right hand corner of this page, a short server activation time ensues (this app runs on a free server which sleeps if not in use) and the following interface will appear:
 
-![screenshot](/assets/pfinder_screenshot.png)
+![screenshot](/pfinder-main/assets/pfinder_screenshot.png)
 
 Specifically, this is what will be seen for Firefox: use of Chrome or Safari will lead to slightly different aesthetics. The Pfinder was designed for use by Firefox or Chrome and is not optimized for Safari, although it is still usable for that browser.
 
@@ -26,7 +26,7 @@ The last input is the `Specify Equation` field, where the user specifies the equ
 
 The example input equation `x^7.14-x-1` results in
 
-![cover](/assets/pfinder_example.png)
+![cover](/pfinder-main/assets/pfinder_example.png)
 
 Complex-valued constants and exponents are currrently supported as well, for example:
 
@@ -45,7 +45,7 @@ When the Redis job is complete, it is fetched and the bytestring is decoded into
 
 For clarity, the callback graph is as follows:
 
-![cover](/assets/pfinder_graph.png)
+![cover](/pfinder-main/assets/pfinder_graph.png)
 
 This system of background Redis processes circumvents the problem of long computation times faced by complex-valued operations at very high resolution.  Heroku, Azure, and most other cloud PaaS providers have hard time limits (30s in this case) for safety and efficiency concerns, meaning that the long computations required to generate high-resolution images of complex-number arrays would simply time out without this system in place.  Timeouts do not occur even when computations run for more than 5 minutes with the current configuration because the app is continually 'active' as it pings the Redis server.  
 
